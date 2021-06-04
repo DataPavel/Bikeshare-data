@@ -144,6 +144,39 @@ def trip_duration_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+def user_stats(df):
+    """Displays statistics on bikeshare users."""
+
+    print('\nCalculating User Stats...\n')
+    start_time = time.time()
+
+    # Display counts of user types
+    usertype = df.groupby(df['User Type'])['User Type'].count()
+    print('Below are counts of user types: \n\n{}'.format(usertype))
+    # Display counts of gender
+    while True:
+        try:
+            gender = df.groupby(df['Gender'])['Gender'].count()
+            print('\nBelow are counts by gender:\n{}'.format(gender))
+            break
+        except:
+            print('No information on Gender is available for Washington')
+            break
+    # Display earliest, most recent, and most common year of birth
+    while True:
+        try:
+            earliest = int(df['Birth Year'].min())
+            recent = int(df['Birth Year'].max())
+            common = int(df['Birth Year'].mode()[0])
+            print('\nThe earliest year of birth is {}\nThe most recent year of birth is {}\nThe most common'
+                ' year of birth is {}'.format(earliest,recent,common))
+            break
+        except:
+            print('No information on Birth is available for Washington')
+            break
+    print("\nThis took %s seconds." % (time.time() - start_time))
+    print('-'*40)
+
 # main function collects all the functions in the project
 def main():
     while True:
@@ -159,6 +192,7 @@ def main():
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
+        user_stats(df)
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
