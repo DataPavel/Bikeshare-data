@@ -1,4 +1,7 @@
-
+import time
+import pandas as pd
+import numpy as np
+import calendar
 
 
 
@@ -55,6 +58,16 @@ def load_data(city, month, day):
 #filtering by day
     if day != 'all':
         df = df[df['day_of_week'] == day.title()]
+        #displaying five rows of data
+    rows = input('Do you want to see the first five rows?')
+    x = 0
+    y = 5
+
+    while rows == 'yes':
+        print(df.iloc[x:y])
+        rows = input('Do you want to see the next five rows?')
+        x = x + 5
+        y = y + 5
     print('-' * 40)
 
     return df
@@ -71,6 +84,7 @@ def main():
                 break
             else:
                 print('Please correct the entries')
+        df = load_data(city, month, day)
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
