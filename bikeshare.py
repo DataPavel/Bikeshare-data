@@ -34,7 +34,14 @@ def get_filters():
 # main function collects all the functions in the project
 def main():
     while True:
-        city, month, day = get_filters() 
+        while True:
+            city, month, day = get_filters()
+            if city in CITY_DATA and \
+                    month in ['january', 'february', 'march', 'april', 'may', 'june', 'all'] and \
+                    day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturdays', 'sunday', 'all']:
+                break
+            else:
+                print('Please correct the entries')
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
