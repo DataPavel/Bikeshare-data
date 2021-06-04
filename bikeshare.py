@@ -113,6 +113,37 @@ def station_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+def trip_duration_stats(df):
+    """Displays statistics on the total and average trip duration."""
+
+    print('\nCalculating Trip Duration...\n')
+    start_time = time.time()
+
+    # display total travel time
+    sec = float(df['Trip Duration'].sum())
+    days = int(sec // (24*3600))
+    sec = sec % (24*3600)
+    hours = int(sec // 3600)
+    sec = sec % 3600
+    mins = int(sec // 60)
+    sec = int(sec % 60)
+
+    print('Total travel time is {} days, {} hours, {} minutes and {} seconds'.format(days,hours,mins,sec))
+
+    # display mean travel time
+    sec = float(df['Trip Duration'].mean())
+    days = int(sec // (24*3600))
+    sec = sec % (24*3600)
+    hours = int(sec // 3600)
+    sec = sec % 3600
+    mins = int(sec // 60)
+    sec = int(sec % 60)
+
+    print('Total mean travel time is {} days, {} hours, {} minutes and {} seconds'.format(days, hours, mins, sec))
+
+    print("\nThis took %s seconds." % (time.time() - start_time))
+    print('-'*40)
+
 # main function collects all the functions in the project
 def main():
     while True:
@@ -127,6 +158,7 @@ def main():
         df = load_data(city, month, day)
         time_stats(df)
         station_stats(df)
+        trip_duration_stats(df)
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
