@@ -72,6 +72,23 @@ def load_data(city, month, day):
 
     return df
 
+def time_stats(df):
+    """Displays statistics on the most frequent times of travel."""
+    print('\nCalculating The Most Frequent Times of Travel...\n')
+    start_time = time.time()
+
+    # display the most common month
+    common_month = calendar.month_name[df['month'].mode()[0]]
+    print('The most frequent month of travel is {}'.format(common_month))
+    # display the most common day of week
+    common_day = df['day_of_week'].mode()[0]
+    print('The most frequent day of travel is {}'.format(common_day))
+    # display the most common start hour
+    df['Start hour'] = df['Start Time'].dt.hour
+    common_start = df['Start hour'].mode()[0]
+    print('The most frequent start hour of Travel is {}'.format(common_start))
+    print("\nThis took %s seconds." % (time.time() - start_time))
+    print('-'*40)
 
 # main function collects all the functions in the project
 def main():
@@ -85,6 +102,7 @@ def main():
             else:
                 print('Please correct the entries')
         df = load_data(city, month, day)
+        time_stats(df)
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
