@@ -90,6 +90,29 @@ def time_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+def station_stats(df):
+    """Displays statistics on the most popular stations and trip."""
+
+    print('\nCalculating The Most Popular Stations and Trip...\n')
+    start_time = time.time()
+
+    # display most commonly used start station
+    common_start_station =df['Start Station'].mode()[0]
+    print('The most commonly used start station is {}'.format(common_start_station))
+
+    # display most commonly used end station
+    common_end_station =df['End Station'].mode()[0]
+    print('The most commonly used end station is {}'.format(common_end_station))
+
+    # display most frequent combination of start station and end station trip
+    df['Trip'] = df['Start Station'] + ' and ' + df['End Station']
+
+    common_combination = df['Trip'].mode()[0]
+    print('The most commonly used combination is {}'.format(common_combination))
+
+    print("\nThis took %s seconds." % (time.time() - start_time))
+    print('-'*40)
+
 # main function collects all the functions in the project
 def main():
     while True:
@@ -103,6 +126,7 @@ def main():
                 print('Please correct the entries')
         df = load_data(city, month, day)
         time_stats(df)
+        station_stats(df)
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
